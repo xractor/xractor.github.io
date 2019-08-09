@@ -15,7 +15,7 @@
 
 
 <html class="theme-next pisces use-motion" lang>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -96,14 +96,25 @@
 
 
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="consistent_hash">
-<meta property="og:url" content="http://blog.datapam.com/2019/08/07/consistent-hash/index.html">
+  <meta name="description" content="Suppose that your have a 4x4 martix as shown in the following figure  There are two ways to store the matrix in the main memory (DRAM), which are   row-major  column-major  ROW MAJORRow major means th">
+<meta name="keywords" content="cache data store">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cache Friendly Data Store">
+<meta property="og:url" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/index.html">
 <meta property="og:site_name" content="XRactor&#39;s blog">
+<meta property="og:description" content="Suppose that your have a 4x4 martix as shown in the following figure  There are two ways to store the matrix in the main memory (DRAM), which are   row-major  column-major  ROW MAJORRow major means th">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-08T01:12:21.306Z">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/matrix.png">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/row-major.png">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/col-major.png">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/row-cache.png">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/col-cache.png">
+<meta property="og:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/dummyrow.png">
+<meta property="og:updated_time" content="2019-08-09T04:15:06.952Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="consistent_hash">
+<meta name="twitter:title" content="Cache Friendly Data Store">
+<meta name="twitter:description" content="Suppose that your have a 4x4 martix as shown in the following figure  There are two ways to store the matrix in the main memory (DRAM), which are   row-major  column-major  ROW MAJORRow major means th">
+<meta name="twitter:image" content="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/matrix.png">
 
 
 
@@ -111,7 +122,7 @@
 
   
   
-  <link rel="canonical" href="http://blog.datapam.com/2019/08/07/consistent-hash/">
+  <link rel="canonical" href="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/">
 
 
 
@@ -121,7 +132,7 @@
   };
 </script>
 
-  <title>consistent_hash | XRactor's blog</title>
+  <title>Cache Friendly Data Store | XRactor's blog</title>
   
 
 
@@ -293,10 +304,10 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.datapam.com/2019/08/07/consistent-hash/">
+    <link itemprop="mainEntityOfPage" href="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jing Yang">
+      <meta itemprop="name" content="XRactor">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -310,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">consistent_hash
+          <h1 class="post-title" itemprop="name headline">Cache Friendly Data Store
 
               
             
@@ -336,9 +347,25 @@
                 
               
 
-              <time title="Created: 2019-08-07 21:12:21" itemprop="dateCreated datePublished" datetime="2019-08-07T21:12:21-04:00">2019-08-07</time>
+              <time title="Created: 2019-08-08 00:10:41" itemprop="dateCreated datePublished" datetime="2019-08-08T00:10:41-04:00">2019-08-08</time>
             
 
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-09 00:15:06" itemprop="dateModified" datetime="2019-08-09T00:15:06-04:00">2019-08-09</time>
+              
             
           </span>
 
@@ -355,8 +382,8 @@
                 </span>
             
                 <span class="post-meta-item-text">Comments: </span>
-                <a href="/2019/08/07/consistent-hash/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/07/consistent-hash/" itemprop="commentCount"></span>
+                <a href="/2019/08/08/cache-friendly-data-store/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/08/cache-friendly-data-store/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -384,7 +411,34 @@
       
 
       
-        
+        <p>Suppose that your have a 4x4 martix as shown in the following figure</p>
+<img src="/2019/08/08/cache-friendly-data-store/matrix.png" title="A 4x4 matrix">
+<p>There are two ways to store the matrix in the main memory (DRAM), which are </p>
+<ul>
+<li>row-major </li>
+<li>column-major</li>
+</ul>
+<h1 id="ROW-MAJOR"><a href="#ROW-MAJOR" class="headerlink" title="ROW MAJOR"></a>ROW MAJOR</h1><p>Row major means that the elements are stored row by row, from left to right.
+Taking the above matrix as an example, the memory layout of the matrix  is like this</p>
+<img src="/2019/08/08/cache-friendly-data-store/row-major.png" title="The memory layout of a matrix stored in row-major">
+<h1 id="COLUMN-MAJOR"><a href="#COLUMN-MAJOR" class="headerlink" title="COLUMN MAJOR"></a>COLUMN MAJOR</h1><p>In the column major, elements are stored column by column, from top to bottom. </p>
+<p>The memory layout of colomn major is shown here.</p>
+<img src="/2019/08/08/cache-friendly-data-store/col-major.png" title="The memory layout of a matrix stored in column-major">
+<h1 id="Which-major-is-more-cache-frinedly"><a href="#Which-major-is-more-cache-frinedly" class="headerlink" title="Which major is more cache frinedly?"></a>Which major is more cache frinedly?</h1><p>The answer depends on your access patterns.</p>
+<h2 id="Senario-1"><a href="#Senario-1" class="headerlink" title="Senario 1"></a>Senario 1</h2><p>Assume that the hot region of the matrix is the <strong>first row</strong> (a, b, c and d), each element takes exactly one cache line, and the CPU is equiped with a 4 lines, 2-way set-associative cache.</p>
+<p>For the row major store, each of the element in the first row will be cached in different cache set. Therefore, all elements in the first row is cached. </p>
+<img src="/2019/08/08/cache-friendly-data-store/row-cache.png" title="The first row is cached">
+<p>For the column-major store, all elements in the first row will be mapped to the same cache set. Since each cache set can only cache two elements, none of the elements can be cached (LRU thrashing).</p>
+<img src="/2019/08/08/cache-friendly-data-store/col-cache.png" title="The first row is cached">
+<h2 id="Senario-2"><a href="#Senario-2" class="headerlink" title="Senario 2"></a>Senario 2</h2><p>If the the hot region is the first column, the situation completely reverses. CPU cache has higher hit ratio if we store data in column major.   </p>
+<h1 id="Is-there-any-way-to-improve-the-cache-hit-ratio-without-chaging-the-storage-major"><a href="#Is-there-any-way-to-improve-the-cache-hit-ratio-without-chaging-the-storage-major" class="headerlink" title="Is there any way to improve the cache hit ratio without chaging the storage major?"></a>Is there any way to improve the cache hit ratio without chaging the storage major?</h1><p>The answer is yes. In the first senario, we can just add a dummy row for the column major store like this.</p>
+<img src="/2019/08/08/cache-friendly-data-store/dummyrow.png" title="A dummy row is added to the matrix">
+<p>In this case, all elements in the first row are cached. </p>
+<h1 id="Take-away-notes"><a href="#Take-away-notes" class="headerlink" title="Take away notes"></a>Take away notes</h1><ul>
+<li>Data store format can affect applications’ performance.</li>
+<li>We do not need to change data store format to make the data more cache friendly.</li>
+</ul>
+
       
     </div>
 
@@ -404,6 +458,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/cache-data-store/" rel="tag"># cache data store</a>
+          
+        </div>
       
 
       
@@ -473,12 +533,21 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">Jing Yang</p>
+              <p class="site-author-name" itemprop="name">XRactor</p>
               <div class="site-description motion-element" itemprop="description"></div>
           </div>
 
@@ -506,7 +575,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
@@ -560,6 +633,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ROW-MAJOR"><span class="nav-number">1.</span> <span class="nav-text">ROW MAJOR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#COLUMN-MAJOR"><span class="nav-number">2.</span> <span class="nav-text">COLUMN MAJOR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Which-major-is-more-cache-frinedly"><span class="nav-number">3.</span> <span class="nav-text">Which major is more cache frinedly?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Senario-1"><span class="nav-number">3.1.</span> <span class="nav-text">Senario 1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Senario-2"><span class="nav-number">3.2.</span> <span class="nav-text">Senario 2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Is-there-any-way-to-improve-the-cache-hit-ratio-without-chaging-the-storage-major"><span class="nav-number">4.</span> <span class="nav-text">Is there any way to improve the cache hit ratio without chaging the storage major?</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Take-away-notes"><span class="nav-number">5.</span> <span class="nav-text">Take away notes</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -578,7 +668,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Jing Yang</span>
+  <span class="author" itemprop="copyrightHolder">XRactor</span>
 
   
 
@@ -586,7 +676,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
 
 
 
@@ -713,9 +803,9 @@
 
 <script>
   var disqus_config = function() {
-    this.page.url = "http://blog.datapam.com/2019/08/07/consistent-hash/";
-    this.page.identifier = "2019/08/07/consistent-hash/";
-    this.page.title = 'consistent_hash';
+    this.page.url = "http://blog.datapam.com/2019/08/08/cache-friendly-data-store/";
+    this.page.identifier = "2019/08/08/cache-friendly-data-store/";
+    this.page.title = 'Cache Friendly Data Store';
     };
   function loadComments() {
     var d = document, s = d.createElement('script');
