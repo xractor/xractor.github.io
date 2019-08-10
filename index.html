@@ -293,6 +293,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.datapam.com/2019/08/09/database-orientation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="XRactor">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XRactor's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/09/database-orientation/" class="post-title-link" itemprop="url">Database Orientation</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-09 23:22:44" itemprop="dateCreated datePublished" datetime="2019-08-09T23:22:44-04:00">2019-08-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-08-10 01:21:28" itemprop="dateModified" datetime="2019-08-10T01:21:28-04:00">2019-08-10</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+              
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+            
+                <span class="post-meta-item-text">Comments: </span>
+                <a href="/2019/08/09/database-orientation/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/08/09/database-orientation/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>In the previous post, we talked about the two ways to store the data of a matrix. In the database (DB) area, there are similar strategies that are row-oriented DB and column-oriented DB.</p>
+<p>The “matrix” become a table in DB. Usually the table is tens of megabytes to hundreds of gigabytes in size, and it is stored in HDD or SSD. Similar to CPU cache vs DRAM, HDD and SSD are much slower than DRAM. Therefore, DB designers and programers alway try to maker each disk access more efficient. </p>
+<h1 id="Row-oriented-DBs-vs-Column-oriented-DBs"><a href="#Row-oriented-DBs-vs-Column-oriented-DBs" class="headerlink" title="Row oriented DBs vs Column oriented DBs"></a>Row oriented DBs vs Column oriented DBs</h1><p>As the names imply, row oriented database tries to store the whole row of a table in the same block, while columnar database stores the values of a column in the same blocks. </p>
+<p>Database orientation is very similar to the matrix store major disscussed in the previous post, Therefore, they have similar advantage and disadvantages.</p>
+<ol>
+<li>Row oriented DBs perform good at row oriented operations such as add/delete/update the whole row.</li>
+<li>Column oriented DBs works best for column oriented operatons such as sort procedures, columns selecting and updating.</li>
+</ol>
+<h1 id="Why-column-oriented-DBs-become-popular-recently"><a href="#Why-column-oriented-DBs-become-popular-recently" class="headerlink" title="Why column oriented DBs become popular recently?"></a>Why column oriented DBs become popular recently?</h1><p>As the big data processing become a hot area in recent years, column oriented DBs attract more attention due to the following reasons. </p>
+<ul>
+<li>Elements in the row usually have different data types such as string and integer, while elements of the same column are in the same data type.  This can increase the compress ratio of data  which is very improtant for big data processing.</li>
+<li>Big data processing often focus on certain attributes (columns) at a prcessing stage. Each stage produces small columns as an output. This is where column oriented DBs good at. </li>
+</ul>
+<h1 id="Take-away-notes"><a href="#Take-away-notes" class="headerlink" title="Take away notes"></a>Take away notes</h1><p>Which database orientation is best for me?
+The answer could be simple that use row oriented DB for OLTP and column oriented DB for OLAP.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://blog.datapam.com/2019/08/08/cache-friendly-data-store/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -712,7 +894,7 @@ Hexo will tell you how to access your website. The address is <a href="http://lo
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -733,7 +915,7 @@ Hexo will tell you how to access your website. The address is <a href="http://lo
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>
